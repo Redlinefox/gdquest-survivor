@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3 uid="uid://b3dsm5aa64d8p"]
+
+[ext_resource type="Script" path="res://game.gd" id="1_7w4ys"]
+[ext_resource type="PackedScene" uid="uid://dhedfuyip3ytp" path="res://player.tscn" id="1_vibgm"]
+[ext_resource type="PackedScene" uid="uid://cp263ep1bxc0b" path="res://enemy.tscn" id="3_i7w41"]
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_7w4ys")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+offset_right = 1920.0
+offset_bottom = 1080.0
+color = Color(0.962473, 1, 0.95805, 1)
+
+[node name="Player" parent="." instance=ExtResource("1_vibgm")]
+z_index = 1
+position = Vector2(960, 540)
+
+[node name="Enemy" parent="." instance=ExtResource("3_i7w41")]
+position = Vector2(1193, 214)
+
+[node name="Enemy2" parent="." instance=ExtResource("3_i7w41")]
+position = Vector2(425, 798)
+
+[node name="Enemy3" parent="." instance=ExtResource("3_i7w41")]
+position = Vector2(1443, 750)
+
+[node name="Enemy4" parent="." instance=ExtResource("3_i7w41")]
+position = Vector2(273, 182)

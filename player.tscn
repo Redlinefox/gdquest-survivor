@@ -1,0 +1,62 @@
+[gd_scene load_steps=8 format=3 uid="uid://dhedfuyip3ytp"]
+
+[ext_resource type="Script" path="res://player.gd" id="1_p1dqe"]
+[ext_resource type="Texture2D" uid="uid://wwe2mdplg2p" path="res://icon.svg" id="2_qj3ph"]
+[ext_resource type="PackedScene" uid="uid://cv3kq3uc0y50g" path="res://attack_manager.tscn" id="3_fc6lb"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_l36wp"]
+radius = 28.0179
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lqqkt"]
+radius = 35.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_adjhi"]
+bg_color = Color(0.169245, 0.169245, 0.169245, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_daw5a"]
+bg_color = Color(0, 0.617209, 0.235315, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="Player" type="CharacterBody2D" groups=["player"]]
+motion_mode = 1
+platform_on_leave = 2
+platform_floor_layers = 4294901760
+script = ExtResource("1_p1dqe")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_qj3ph")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["player"]]
+shape = SubResource("CircleShape2D_l36wp")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="AttackManager" parent="." instance=ExtResource("3_fc6lb")]
+
+[node name="Hurtbox" type="Area2D" parent="."]
+unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("CircleShape2D_lqqkt")
+debug_color = Color(0.945098, 0, 0.239216, 0.419608)
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+unique_name_in_owner = true
+offset_left = -61.0
+offset_top = -57.0
+offset_right = 65.0
+offset_bottom = -38.0
+theme_override_styles/background = SubResource("StyleBoxFlat_adjhi")
+theme_override_styles/fill = SubResource("StyleBoxFlat_daw5a")
+value = 100.0
+show_percentage = false

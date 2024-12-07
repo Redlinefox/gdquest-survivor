@@ -1,0 +1,36 @@
+[gd_scene load_steps=4 format=3 uid="uid://cv3kq3uc0y50g"]
+
+[ext_resource type="Script" path="res://attack_manager.gd" id="1_bcu2h"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jscy1"]
+size = Vector2(1920, 1080)
+
+[sub_resource type="BoxMesh" id="BoxMesh_8ta25"]
+size = Vector3(8, 2, 1)
+
+[node name="AttackManager" type="Area2D"]
+z_index = 1
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_bcu2h")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_jscy1")
+
+[node name="WeaponPivot" type="Marker2D" parent="."]
+
+[node name="GunPlaceHolder" type="MeshInstance2D" parent="WeaponPivot"]
+modulate = Color(0, 0.370975, 0.956646, 1)
+position = Vector2(44, 0)
+scale = Vector2(3.25, 5)
+mesh = SubResource("BoxMesh_8ta25")
+
+[node name="ShootingPoint" type="Marker2D" parent="WeaponPivot/GunPlaceHolder"]
+unique_name_in_owner = true
+position = Vector2(4, -1.78814e-07)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.2
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
