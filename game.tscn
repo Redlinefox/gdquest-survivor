@@ -2,15 +2,20 @@
 
 [ext_resource type="Script" path="res://game.gd" id="1_7w4ys"]
 [ext_resource type="PackedScene" uid="uid://dhedfuyip3ytp" path="res://player/player.tscn" id="1_vibgm"]
-[ext_resource type="PackedScene" uid="uid://cp263ep1bxc0b" path="res://enemy/enemy.tscn" id="3_iq64c"]
+
+[sub_resource type="Curve2D" id="Curve2D_c4lxo"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -100, -100, 0, 0, 0, 0, 2020, -100, 0, 0, 0, 0, 2020, 1180, 0, 0, 0, 0, -100, 1180, 0, 0, 0, 0, -100, -100)
+}
+point_count = 5
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_7w4ys")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="BackgroundCanvas" type="CanvasLayer" parent="."]
 layer = -1
 
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+[node name="ColorRect" type="ColorRect" parent="BackgroundCanvas"]
 offset_right = 1920.0
 offset_bottom = 1080.0
 color = Color(0.962473, 1, 0.95805, 1)
@@ -18,20 +23,78 @@ color = Color(0.962473, 1, 0.95805, 1)
 [node name="Player" parent="." instance=ExtResource("1_vibgm")]
 z_index = 1
 position = Vector2(960, 540)
+health = 10.0
 
-[node name="EnemyGroup" type="Node" parent="."]
+[node name="CollisionShape2D" parent="Player" index="1"]
+visible = true
 
-[node name="Enemy" parent="EnemyGroup" instance=ExtResource("3_iq64c")]
-position = Vector2(780, 949)
+[node name="CollisionShape2D" parent="Player/Hurtbox" index="0"]
+visible = true
 
-[node name="Enemy2" parent="EnemyGroup" instance=ExtResource("3_iq64c")]
-position = Vector2(294, 315)
+[node name="EnemySpawnArea" type="Path2D" parent="Player"]
+position = Vector2(-960, -540)
+curve = SubResource("Curve2D_c4lxo")
 
-[node name="Enemy3" parent="EnemyGroup" instance=ExtResource("3_iq64c")]
-position = Vector2(195, 611)
+[node name="PathFollow2D" type="PathFollow2D" parent="Player/EnemySpawnArea"]
+unique_name_in_owner = true
+position = Vector2(2020, 383.719)
+rotation = 1.5708
+progress = 2603.72
 
-[node name="Enemy4" parent="EnemyGroup" instance=ExtResource("3_iq64c")]
-position = Vector2(920, 218)
+[node name="EnemySpawnTimer" type="Timer" parent="Player/EnemySpawnArea"]
+wait_time = 0.1
+autostart = true
 
-[node name="Enemy5" parent="EnemyGroup" instance=ExtResource("3_iq64c")]
-position = Vector2(1505, 805)
+[node name="GameOverScreen" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+visible = false
+
+[node name="TransparentBackground" type="ColorRect" parent="GameOverScreen"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.470588)
+
+[node name="GameOverLabel" type="Label" parent="GameOverScreen/TransparentBackground"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -325.5
+offset_top = -82.5
+offset_right = 325.5
+offset_bottom = 82.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.313726)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/shadow_outline_size = 8
+theme_override_font_sizes/font_size = 120
+text = "Game Over"
+
+[node name="RestartGameButton" type="Button" parent="GameOverScreen/TransparentBackground"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -180.0
+offset_top = 116.0
+offset_right = 180.0
+offset_bottom = 177.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Restart"
+
+[connection signal="player_health_depleted" from="Player" to="." method="_on_player_player_health_depleted"]
+[connection signal="timeout" from="Player/EnemySpawnArea/EnemySpawnTimer" to="." method="_on_enemy_spawn_timer_timeout"]
+[connection signal="pressed" from="GameOverScreen/TransparentBackground/RestartGameButton" to="." method="_on_restart_game_button_pressed"]
+
+[editable path="Player"]

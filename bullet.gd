@@ -1,9 +1,9 @@
 extends Area2D
 
-var damage = 1
-var bullet_speed = 800
-var traveled_distance = 0
-var bullet_range = 1600
+@export var damage = 1
+@export var bullet_speed = 2000
+@export var traveled_distance = 0
+@export var bullet_range = 1600
 
 func _physics_process(delta: float) -> void:
 	var direction = Vector2.RIGHT.rotated(rotation)
@@ -21,4 +21,4 @@ func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 func _on_body_entered(body: Node2D) -> void:
 	queue_free()
 	if body.has_method("take_damage"):
-		body.take_damage()
+		body.take_damage(damage)

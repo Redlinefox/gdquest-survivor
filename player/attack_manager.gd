@@ -3,7 +3,7 @@ extends Area2D
 @onready var laser_sight := %LaserSight
 
 var enemies_in_range : Array[Node2D] = []
-
+var bfr = 2.0
 
 func _physics_process(delta: float) -> void:
 	enemies_in_range = get_overlapping_bodies()
@@ -15,14 +15,6 @@ func _physics_process(delta: float) -> void:
 			laser_sight.points[1] = target_enemy.global_position
 	else:
 		search_enemies(delta)
-	
-	#if enemies_in_range.size() > 0:
-		#var target_enemy = enemies_in_range.front()
-		##var target_enemy = get_closest_enemy(global_position, enemies_in_range)
-		#$WeaponPivot.look_at(target_enemy.global_position)
-		##look_at(target_enemy.global_position)
-	#else:
-		#$WeaponPivot.rotation_degrees += 100 * delta 
 
 
 func shoot():
@@ -34,12 +26,15 @@ func shoot():
 
 
 func _on_timer_timeout() -> void:
-		if enemies_in_range.size() > 0:
-			%LaserSight.visible = true
-			shoot()
-		else:
-			%LaserSight.visible = false
-			pass
+	if enemies_in_range.size() > 0:
+		laser_sight.visible = true
+		shoot()
+	else:
+		laser_sight.visible = false
+		pass
+	%BulletFireRate.wait_time = 1/bfr
+	print(%BulletFireRate.get_wait_time())
+
 
 func get_closest_enemy(array_of_enemies):
 	# Reset range of closest_enemy

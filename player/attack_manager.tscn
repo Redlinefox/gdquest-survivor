@@ -14,8 +14,7 @@ collision_layer = 0
 collision_mask = 2
 script = ExtResource("1_bcu2h")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
+[node name="AttackArea" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_jscy1")
 
 [node name="WeaponPivot" type="Marker2D" parent="."]
@@ -40,8 +39,9 @@ points = PackedVector2Array(0, 0, 40, 0)
 width = 3.0
 default_color = Color(1, 0, 0, 1)
 
-[node name="Timer" type="Timer" parent="."]
-wait_time = 0.2
+[node name="BulletFireRate" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 0.1
 autostart = true
 
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="BulletFireRate" to="." method="_on_timer_timeout"]

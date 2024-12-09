@@ -1,10 +1,10 @@
 extends CharacterBody2D
 
-var health : float = 100.0
-var speed = 300.0
-var damage_rate = 20.0
+@export var health : float = 100.0
+@export var speed = 300.0
+@export var damage_rate = 20.0
 
-signal player_died
+signal player_health_depleted
 
 func _physics_process(delta: float) -> void:
 	var direction := Input.get_vector("left", "right", "up", "down")
@@ -22,4 +22,4 @@ func _physics_process(delta: float) -> void:
 		%ProgressBar.value = health
 	
 	if health <= 0.0:
-		player_died.emit()
+		player_health_depleted.emit()
