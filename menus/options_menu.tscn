@@ -1,0 +1,45 @@
+[gd_scene load_steps=2 format=3 uid="uid://dy8c2wj0nd0qd"]
+
+[ext_resource type="Script" path="res://menus/options_menu.gd" id="1_bd0ig"]
+
+[node name="OptionsMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_bd0ig")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -190.0
+offset_top = -20.0
+offset_right = 190.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="VolumeLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Volume"
+
+[node name="VolumeSlider" type="HSlider" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="GoBackButton" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Back to Start Menu"
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/GoBackButton" to="." method="_on_go_back_button_pressed"]

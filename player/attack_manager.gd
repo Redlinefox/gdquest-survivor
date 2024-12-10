@@ -18,7 +18,7 @@ func _physics_process(delta: float) -> void:
 
 
 func shoot():
-	var load_bullet_scene = preload("res://bullet.tscn")
+	var load_bullet_scene = preload("res://assets/bullet.tscn")
 	var new_bullet = load_bullet_scene.instantiate()
 	%ShootingPoint.add_child(new_bullet)
 	new_bullet.global_position = %ShootingPoint.global_position
@@ -32,8 +32,7 @@ func _on_timer_timeout() -> void:
 	else:
 		laser_sight.visible = false
 		pass
-	%BulletFireRate.wait_time = 1/bfr
-	print(%BulletFireRate.get_wait_time())
+	#%BulletFireRate.wait_time = 1/bfr
 
 
 func get_closest_enemy(array_of_enemies):

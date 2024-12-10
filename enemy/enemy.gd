@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 #@onready var player = get_tree().get_first_node_in_group("player")
-@onready var player = get_node("/root/Game/Player")
+@onready var player = get_node("/root/Level1/Player")
 var speed = 100
 var enemy_health = 5
 

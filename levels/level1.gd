@@ -1,13 +1,16 @@
 extends Node2D
 
 
+@onready var pause_menu = $PauseMenu
+var paused = false
+
 func _ready() -> void:
 	pass
 
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("exit_game"):
-		get_tree().quit()
+	if event.is_action_pressed("pause"):
+		activate_pause_menu()
 		
 	if event.is_action_pressed("toggle_fullscreen"):
 		if DisplayServer.window_get_mode() == 0:
@@ -34,3 +37,12 @@ func _on_player_player_health_depleted() -> void:
 
 func _on_restart_game_button_pressed() -> void:
 	get_tree().reload_current_scene()
+
+
+func activate_pause_menu():
+	if paused:
+		pause_menu.hide()
+		Engine.time_scale = 1
+	else:
+		pause_menu.show()
+	paused = !paused
