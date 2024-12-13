@@ -5,6 +5,11 @@ extends Area2D
 @export var traveled_distance = 0
 @export var bullet_range = 1600
 
+func _ready() -> void:
+	$BulletSound.set_pitch_scale(randf_range(1.5, 2.0))
+	$BulletSound.play()
+
+
 func _physics_process(delta: float) -> void:
 	var direction = Vector2.RIGHT.rotated(rotation)
 	position +=  direction * bullet_speed * delta

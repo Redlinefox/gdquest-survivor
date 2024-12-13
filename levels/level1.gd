@@ -1,11 +1,12 @@
 extends Node2D
 
+@export var pause_menu : Node
+@export var game_over_screen : Node
 
-@onready var pause_menu = $PauseMenu
 var paused = false
 
 func _ready() -> void:
-	pass
+	Global.score = 0
 
 
 func _input(event: InputEvent) -> void:
@@ -31,18 +32,15 @@ func _on_enemy_spawn_timer_timeout() -> void:
 
 
 func _on_player_player_health_depleted() -> void:
-	%GameOverScreen.visible = true
+	game_over_screen.visible = true
 	get_tree().paused = true
-
-
-func _on_restart_game_button_pressed() -> void:
-	get_tree().reload_current_scene()
 
 
 func activate_pause_menu():
 	if paused:
 		pause_menu.hide()
-		Engine.time_scale = 1
+		get_tree().paused = false
 	else:
+		get_tree().paused = true
 		pause_menu.show()
 	paused = !paused

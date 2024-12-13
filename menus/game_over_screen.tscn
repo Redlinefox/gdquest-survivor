@@ -1,0 +1,57 @@
+[gd_scene load_steps=2 format=3 uid="uid://b3sbd1igxcu86"]
+
+[ext_resource type="Script" path="res://menus/game_over_screen.gd" id="1_a3vb6"]
+
+[node name="GameOverScreen" type="CanvasLayer"]
+process_mode = 2
+script = ExtResource("1_a3vb6")
+
+[node name="TransparentBackground" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.470588)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -400.0
+offset_top = -158.5
+offset_right = 400.0
+offset_bottom = 158.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 32
+alignment = 1
+
+[node name="GameOverLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.313726)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/shadow_outline_size = 8
+theme_override_font_sizes/font_size = 120
+text = "Game Over"
+horizontal_alignment = 1
+justification_flags = 161
+
+[node name="RestartGameButton" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(800, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Restart"
+
+[node name="MainMenuButton" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(800, 120)
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Main Menu
+"
+
+[connection signal="pressed" from="VBoxContainer/RestartGameButton" to="." method="_on_restart_game_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/MainMenuButton" to="." method="_on_main_menu_button_pressed"]

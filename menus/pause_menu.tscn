@@ -5,9 +5,10 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_t3c0c"]
 shader = ExtResource("2_kj62k")
+shader_parameter/amount = 1.0
 
 [node name="PauseMenu" type="CanvasLayer"]
-process_mode = 2
+process_mode = 3
 script = ExtResource("1_a5gow")
 
 [node name="ColorRect" type="ColorRect" parent="."]
@@ -19,32 +20,40 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
+custom_minimum_size = Vector2(800, 0)
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -199.0
-offset_top = -50.0
-offset_right = 199.0
-offset_bottom = 51.0
+offset_left = -400.0
+offset_top = -110.5
+offset_right = 400.0
+offset_bottom = 110.5
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
+theme_override_constants/separation = 16
 
 [node name="ResumeButton" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 40
 text = "Resume"
 
 [node name="MainMenuButton" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 40
 text = "Main Menu
 "
 
 [node name="QuitGameButton" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 40
 text = "Quit Game"
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]

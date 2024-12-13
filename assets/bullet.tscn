@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://buunssf7v0nbc"]
+[gd_scene load_steps=5 format=3 uid="uid://buunssf7v0nbc"]
 
 [ext_resource type="Script" path="res://assets/bullet.gd" id="1_14is3"]
 [ext_resource type="Texture2D" uid="uid://5ptjstcyx10p" path="res://assets/Bullet.png" id="1_54tfl"]
+[ext_resource type="AudioStream" uid="uid://dsyin1bsad5vw" path="res://assets/attack_wr.mp3" id="3_kfl5l"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7r2gs"]
 radius = 11.0
@@ -24,6 +25,10 @@ shape = SubResource("CircleShape2D_7r2gs")
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 position = Vector2(-3, 2.38419e-07)
 scale = Vector2(1.9, 1.1)
+
+[node name="BulletSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_kfl5l")
+pitch_scale = 1.5
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
